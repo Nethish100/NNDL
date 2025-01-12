@@ -13,7 +13,6 @@ num_epochs = 10
 # Device will determine whether to run the training on GPU or CPU.
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-
 #Loading the dataset and preprocessing
 train_dataset = torchvision.datasets.MNIST(root = './data',
                                            train = True,
@@ -23,7 +22,6 @@ train_dataset = torchvision.datasets.MNIST(root = './data',
                                                   transforms.Normalize(mean = (0.1307,), std = (0.3081,))]),
                                            download = True)
 
-
 test_dataset = torchvision.datasets.MNIST(root = './data',
                                           train = False,
                                           transform = transforms.Compose([
@@ -32,17 +30,13 @@ test_dataset = torchvision.datasets.MNIST(root = './data',
                                                   transforms.Normalize(mean = (0.1325,), std = (0.3105,))]),
                                           download=True)
 
-
 train_loader = torch.utils.data.DataLoader(dataset = train_dataset,
                                            batch_size = batch_size,
                                            shuffle = True)
 
-
 test_loader = torch.utils.data.DataLoader(dataset = test_dataset,
                                            batch_size = batch_size,
                                            shuffle = True)
-
-
 #Defining the convolutional neural network
 class LeNet5(nn.Module):
     def __init__(self, num_classes):
@@ -73,9 +67,6 @@ class LeNet5(nn.Module):
         out = self.relu1(out)
         out = self.fc2(out)
         return out
-    
-    
-    
 model = LeNet5(num_classes).to(device)
 
 #Setting the loss function
@@ -86,7 +77,6 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 #this is defined to print how many steps are remaining when training
 total_step = len(train_loader)
-
 
 total_step = len(train_loader)
 for epoch in range(num_epochs):
@@ -104,8 +94,6 @@ for epoch in range(num_epochs):
         if (i+1) % 400 == 0:
             print ('Epoch {}/{}, Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, i+1, total_step, loss.item()))
 
-
-            
 # Test the model
 # In test phase, we don't need to compute gradients (for memory efficiency)
   
